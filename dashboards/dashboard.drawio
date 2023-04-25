@@ -1,0 +1,34 @@
+<mxfile host="app.diagrams.net" modified="2023-04-25T00:17:50.632Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="CfvRbRolwG50kmafEbcj" version="21.2.1" type="google">
+  <diagram name="Página-1" id="B68LRDFNFuWBfLjw0yI1">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kfm4oOds39kPNPWfVhGz-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="-720" width="500" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="kfm4oOds39kPNPWfVhGz-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="-720" width="500" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="yjN0xp4bibiJBbV1lQSh-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="-720" width="500" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="yjN0xp4bibiJBbV1lQSh-10" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="-720" width="500" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="yjN0xp4bibiJBbV1lQSh-11" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="-600" width="250" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="yjN0xp4bibiJBbV1lQSh-12" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="-600" width="250" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="yjN0xp4bibiJBbV1lQSh-14" value="&lt;h1&gt;&lt;b&gt;Acompanhamento Diário&lt;/b&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="270" y="-790" width="60" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="yjN0xp4bibiJBbV1lQSh-16" value="&lt;h1&gt;&lt;b&gt;Acompanhamento Estratégico&lt;/b&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="810" y="-800" width="60" height="10" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
