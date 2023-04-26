@@ -32,8 +32,17 @@ df1.columns = new_cols
 
 # Excluir as linhas com a idade dos entregadores vazia
 # ( Conceitos de seleção condicional )
-linhas_vazias = df1['delivery_person_age'] != 'NaN '
-df1 = df1.loc[linhas_vazias, :]
+linhas_selecionadas = df1['delivery_person_age'] != 'NaN '
+df1 = df1.loc[linhas_selecionadas, :].copy()
+
+linhas_selecionadas = (df1['road_traffic_density'] != 'NaN ') 
+df1 = df1.loc[linhas_selecionadas, :].copy()
+
+linhas_selecionadas = (df1['city'] != 'NaN ') 
+df1 = df1.loc[linhas_selecionadas, :].copy()
+
+linhas_selecionadas = (df1['festival'] != 'NaN ') 
+df1 = df1.loc[linhas_selecionadas, :].copy()
 
 # Conversao de texto/categoria/string para numeros inteiros
 df1['delivery_person_age'] = df1['delivery_person_age'].astype( int )
@@ -45,7 +54,7 @@ df1['delivery_person_ratings'] = df1['delivery_person_ratings'].astype( float )
 df1['order_date'] = pd.to_datetime( df1['order_date'], format='%d-%m-%Y' )
 #
 linhas_vazias = df1['multiple_deliveries'] != 'NaN '
-df1 = df1.loc[linhas_vazias, :]
+df1 = df1.loc[linhas_vazias, :].copy()
 df1['multiple_deliveries'] = df1['multiple_deliveries'].astype( int )
 
 df1['time_taken(min)'] = df1['time_taken(min)'].apply(lambda x: x.split('(min) ')[1])
@@ -70,7 +79,7 @@ data_slider = st.sidebar.slider('Valores', value=pd.datetime(2022, 4, 13),min_va
 
 st.sidebar.markdown("""---""")
 
-traffic_options = st.sidebar.multiselect( 'Quais as condições do trânsito', ['Low ', 'Medium ', 'High ', 'Jam ', 'NaN '], default = ['Low ', 'Medium ', 'High ', 'Jam ', 'NaN '])
+traffic_options = st.sidebar.multiselect( 'Quais as condições do trânsito', ['Low ', 'Medium ', 'High ', 'Jam '], default = ['Low ', 'Medium ', 'High ', 'Jam '])
 st.sidebar.markdown("""---""")
 
 linhas_selec = df2['order_date'] < data_slider
