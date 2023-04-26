@@ -7,9 +7,11 @@ import inflection
 import folium
 import streamlit as st
 
-from haversine import haversine
+from haversine            import haversine
 from IPython.core.display import HTML
 from matplotlib           import pyplot as plt
+from PIL                  import Image
+from streamlit_folium            import folium_static
 
 df = pd.read_csv( 'datasets/train.csv' )
 
@@ -51,14 +53,13 @@ df1['time_taken(min)'] = df1['time_taken(min)'].astype(int)
 
 df2 = df1.copy()
 
-aux1 = df2[['id', 'order_date']].groupby( 'order_date' ).count().reset_index()
-aux1.columns = ['order_date', 'qtd_entregas']
-line_graph = sns.lineplot(x='order_date', y='qtd_entregas', data=aux1);
-line_graph.set_title("Variação da quantidade de pedidos por dia")
-
 # STREAMLIT
 
-st.header('This is a header')
+st.header('Visualização Perguntas de Negócio - Visão Empresa')
+
+image_path = 'reports/images/Eagle.png'
+image = Image.open(image_path) 
+st.sidebar.image(image, width=120)
 
 st.sidebar.markdown("# Cury Company")
 st.sidebar.markdown('## Filtro')
@@ -67,11 +68,70 @@ st.sidebar.markdown('## Selecione uma data limite')
 
 data_slider = st.sidebar.slider('Valores', value=pd.datetime(2022, 4, 13),min_value=pd.datetime(2022, 2, 11),max_value=pd.datetime(2022, 4, 6), format='DD-MM-YYYY')
 
-st.header(data_slider)
+st.sidebar.markdown("""---""")
 
-st.markdown('# Visualização diária dos pedidos')
-with st.container():
-    st.markdown('### Quantidade de pedidos por dia')
+traffic_options = st.sidebar.multiselect( 'Quais as condições do trânsito', ['Low ', 'Medium ', 'High ', 'Jam ', 'NaN '], default = ['Low ', 'Medium ', 'High ', 'Jam ', 'NaN '])
+st.sidebar.markdown("""---""")
+
+linhas_selec = df2['order_date'] < data_slider
+df2 = df2.loc[linhas_selec, :]
+
+linhas_selec = df2['road_traffic_density'].isin(traffic_options) 
+df2 = df2.loc[linhas_selec, :]
+
+tab1, tab2, tab3 = st.tabs(['Visão Gerencial', 'Visão Estratégica', 'Visão Geográfica'])   
+
+with tab1:
+    with st.container():
+        st.markdown('## Quantidade de Pedidos por Dia')
+
+        aux1 = df2[['id', 'order_date']].groupby('order_date').count().reset_index()
+        aux1.columns = ['order_date', 'qtd_entregas']
+        fig = px.bar(aux1, x='order_date', y='qtd_entregas')
     
+        st.plotly_chart(fig, use_container_width=True)
 
-print("Oi")
+    with st.container():
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown('## Distribuição dos pedidos por tipo de tráfego - Porcentagem')
+            aux1 = df2.loc[:, ['id', 'road_traffic_density']].groupby( 'road_traffic_density' ).count().reset_index()
+            aux1['traffic_perc'] = ( aux1['id'] / aux1['id'].sum() ) * 100
+
+            fig2 = px.pie( aux1, values='traffic_perc', names='road_traffic_density' )
+            st.plotly_chart(fig2, use_container_width=True)
+
+        with col2:
+            st.markdown('## Comparação do volume de pedidos por cidade e tipo de tráfego')
+            aux2 = df2[['id', 'city','road_traffic_density']].groupby( ['city', 'road_traffic_density'] ).count().reset_index()
+            fig3 = scatter_graph = px.scatter(aux2, x='city', y='road_traffic_density', size='id', color='city')
+            
+            st.plotly_chart(fig3, use_container_width=True)
+
+with tab2:
+    with st.container():
+        st.markdown('## Quantidade de pedidos por semana')
+        df2['week_of_year'] = df2['order_date'].dt.strftime('%U') 
+        aux1 = df2[['id', 'week_of_year']].groupby( 'week_of_year' ).count().reset_index()
+        fig4 = px.line(aux1, x='week_of_year', y='id')
+        st.plotly_chart(fig4, use_container_width=True)
+
+    with st.container():
+        st.markdown('## Quantidade de pedidos por entregador por semana')
+        aux1 = df2[['id', 'week_of_year']].groupby( 'week_of_year' ).count().reset_index()
+        aux2 = df2[['delivery_person_id', 'week_of_year']].groupby( 'week_of_year' ).nunique().reset_index()
+
+        aux3 = pd.merge( aux1, aux2, how='inner' )
+        aux3['order_by_delivery'] = aux3['id'] / aux3['delivery_person_id']
+        fig5 = px.line(aux3, x='week_of_year', y='order_by_delivery')
+        st.plotly_chart(fig5, use_container_width=True)
+
+with tab3:
+    st.markdown('## A localização central de cada cidade por tipo de tráfego')
+    data_plot = df2.loc[:, ['city', 'road_traffic_density', 'delivery_location_latitude', 'delivery_location_longitude']].groupby(['city', 'road_traffic_density']).median().reset_index()
+
+    map_ = folium.Map(zoom_start=11)
+    for index, location_info in data_plot.iterrows():
+        folium.Marker([location_info['delivery_location_latitude'], location_info['delivery_location_longitude']]).add_to(map_)
+
+    folium_static(map_, width=1024, height=600)
