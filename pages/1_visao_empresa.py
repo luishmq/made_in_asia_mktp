@@ -116,8 +116,7 @@ df2 = clean_code(df1)
 
 st.header('Visualização Perguntas de Negócio - Visão Empresa')
 
-image_path = 'reports/images/logo.png'
-image = Image.open(image_path) 
+image = Image.open('reports/images/logo.png') 
 st.sidebar.image(image, width=120)
 
 st.sidebar.markdown("# Made in Asia Restaurant")
