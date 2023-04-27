@@ -9,7 +9,6 @@ import folium
 import streamlit as st
 
 from haversine            import haversine
-from IPython.core.display import HTML
 from matplotlib           import pyplot as plt
 from PIL                  import Image
 from streamlit_folium            import folium_static
