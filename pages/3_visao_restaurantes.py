@@ -102,7 +102,7 @@ st.header('Visualização Perguntas de Negócio - Visão Restaurantes')
 image = Image.open('reports/images/logo.png') 
 st.sidebar.image(image, width=120)
 
-st.sidebar.markdown("# Made in Asia Restaurant")
+st.sidebar.markdown("# Made in Asia Marketplace")
 st.sidebar.markdown('## Filtro')
 st.sidebar.markdown("""---""")
 st.sidebar.markdown('## Selecione uma data limite')
