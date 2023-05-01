@@ -1,119 +1,119 @@
 # Made in Asia Marketplace 🍴
-## Visualização e análise de dados da empresa Made in Asia na plataforma do Streamlit 
+## Visualization and analysis of Made in Asia company data by Streamlit
 ![](reports/images/india_rest.jpeg)
 
-# 1.0 Problema de Negócio 
+# 1.0 Business Problem 
 
-A Made in Asia é uma empresa de tecnologia que criou um aplicativo que conecta restaurantes, entregadores e pessoas. Através desse aplicativo, é possível realizar o pedido de uma refeição, em qualquer restaurante cadastrado, e recebê-lo no conforto da sua casa por um entregador também cadastrado no aplicativo da Made in Asia.
+Made in Asia is a technology company that created an app that connects restaurants, delivery people and people. Through this application, it is possible to order a meal at any registered restaurant, and receive it in the comfort of your home by a delivery person also registered in the Made in Asia application.
 
-A empresa realiza negócios entre restaurantes, entregadores e pessoas, e gera muitos dados sobre entregas, tipos de pedidos, condições climáticas, avaliação dos entregadores e etc. Apesar da entrega estar crescento, em termos de entregas, o CEO não tem visibilidade completa dos KPIs de crescimento da empresa.
+The company conducts business between restaurants, couriers and people, and generates a lot of data about deliveries, types of orders, weather conditions, assessment of couriers, etc. Despite the delivery is increasing, in terms of deliveries, the CEO does not have complete visibility into the company's growth KPIs.
 
-Dessa forma, é fundamental que alguém seja responsável por criar soluções de dados para entrega, mas antes de treinar algoritmos, a necessidade da empresa é ter um os principais KPIs estratégicos organizados em uma única ferramenta, para que o CEO possa consultar e conseguir tomar decisões simples, porém importantes.
+In this way, it is essential that someone is responsible for creating data solutions for delivery, but before training algorithms, the company needs to have one of the main strategic KPIs organized in a single tool, so that the CEO can consult and be able to make decisions simple but important.
 
-A empresa possui um modelo de negócio chamado Marketplace, que busca fazer o intermédio do negócio entre três clientes principais: Restaurantes, entregadores e pessoas compradoras. Nesse sentido, o CEO gostaria de acompanhar as métricas de crescimento baseando-se em três visões distintas:
+The company has a business model called Marketplace, which seeks to mediate the business between three main customers: Restaurants, couriers and buyers. In this sense, the CEO would like to monitor growth metrics based on three different views:
 
-Do lado da empresa:
-- 1. Quantidade de pedidos por dia.
-- 2. Quantidade de pedidos por semana.
-- 3. Distribuição dos pedidos por tipo de tráfego.
-- 4. Comparação do volume de pedidos por cidade e tipo de tráfego.
-- 4. A quantidade de pedidos por entregador por semana.
-- 5. A localização central de cada cidade por tipo de tráfego.
+On the company side:
+- 1. Quantity of orders per day.
+- 2. Quantity of orders per week.
+- 3. Distribution of requests by type of traffic.
+- 4. Comparison of order volume by city and type of traffic.
+- 4. The amount of orders per delivery person per week.
+- 5. The central location of each city by type of traffic.
 
-Do lado do entregador:
-- 1. A menor e maior idade dos entregadores.
-- 2. A pior e a melhor condição de veículos.
-- 3. A avaliação médida por entregador.
-- 4. A avaliação média e o desvio padrão por tipo de tráfego.
-- 5. A avaliação média e o desvio padrão por condições climáticas.
-- 6. Os 10 entregadores mais rápidos por cidade.
-- 7. Os 10 entregadores mais lentos por cidade.
+On the delivery side:
+- 1. The lowest and highest age of the couriers.
+- 2. The worst and best condition of vehicles.
+- 3. The average rating per courier.
+- 4. Average rating and standard deviation by type of traffic.
+- 5. The average rating and standard deviation by weather conditions.
+- 6. The 10 fastest couriers by city.
+- 7. The 10 slowest couriers by city.
 
-Do lado do restaurantes:
-- 1. A quantidade de entregadores únicos.
-- 2. A distância média dos resturantes e dos locais de entrega.
-- 3. O tempo médio e o desvio padrão de entrega por cidade.
-- 4. O tempo médio e o desvio padrão de entrega por cidade e tipo de pedido.
-- 5. O tempo médio e o desvio padrão de entrega por cidade e tipo de tráfego.
-- 6. O tempo médio de entrega durantes os Festivais.
+From the restaurant side:
+- 1. The amount of unique couriers.
+- 2. The average distance to restaurants and delivery locations.
+- 3. The average delivery time and standard deviation by city.
+- 4. Average delivery time and standard deviation by city and order type.
+- 5. The average delivery time and standard deviation by city and type of traffic.
+- 6. The average delivery time during Festivals.
 
-# 2.0 Premissas de Negócio
+# 2.0 Business Assumptions
 
-- A análise foi realizada a partir de dados entre 11/02/2022 e 06/04/2022
-- O modelo adotado pela empresa é o Marketplace
-- Um dashboard baseado em três visões diferentes (Empresa, Entregadores e Restaurantes)foi construído para acompanhar as métricas de crescimento da empresa 
+- The analysis was performed from data between 02/11/2022 and 04/06/2022
+- The model adopted by the company is the Marketplace
+- A dashboard based on three different views (Company, Deliveries and Restaurants) was built to monitor the company's growth metrics
 
-## 2.1 Descrição dos dados
+## 2.1 Data Description
 
 | Column            | Description                                                                                                                             |
 | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| `ID`       | Identificador único do cliente                                                                                                                                  |
-| `Delivery_person_ID`      | Identificador único do Entregador                                                                                                                           |
-| `Delivery_person_Age`         | Idade de cada Entregador                                                                                                                    |
-| `Delivery_person_Ratings`     | Nota de cada Entregador                                                                                                            |
-| `Restaurant_latitude`       | Valor da latitude de cada Restaurante                                                                                                        |
-| `Restaurant_longitude`          | Valor da longitude de cada Restaurante                                                                                                                      |
-| `Delivery_location_latitude`             | Valor da latitude da localização de cada Entregador                                                                                                                         |
-| `Delivery_location_longitude`          | Valor da longitude da localização de cada Entregador                                                                             |
-| `Order_Date`         | Data que cada pedido foi realizado                                                                                           |
-| `Time_Orderd`   | Horário que cada pedido foi realizado                                                                     |
-| `Time_Order_picked`       | Horário em que cada pedido foi entregue 
-| `Weatherconditions`  | Condições do clima                                                     |
-| `Road_traffic_density` | Tipo de tráfego                                                                                                         |
-| `Vehicle_condition`          | Condição de cada veículo em uma escala de 0 a 3
-| `Type_of_order`   | Tipo de cada pedido realizado                                                                      |
-| `Type_of_vehicle`       | Tipo de cada veículo
-| `multiple_deliveries`  | Se houve mais de um pedido ( 1 ) ou não ( 0 )                                                   |
-| `Festival` | Se era período de festival ( Yes ) ou não ( No )                                                                                                         |
-| `City`          | Tipo de cada cidade 
-| `Time_taken(min)`          | Tempo para cada pedido ser entregue
+| `ID`       | Customer Unique Identifier |
+| `Delivery_person_ID` | Courier's Unique Identifier |
+| `Delivery_person_Age` | Age of each Courier |
+| `Delivery_person_Ratings` | Note from each Courier |
+| `Restaurant_latitude` | Value of the latitude of each Restaurant |
+| `Restaurant_longitude` | Value of the longitude of each Restaurant |
+| `Delivery_location_latitude` | Latitude value of each Courier's location |
+| `Delivery_location_longitude` | Longitude value of each Courier's location                                                                            |
+| `Order_Date`         | Date each order was placed |
+| `Time_Orderd` | Time each order was placed |
+| `Time_Order_picked` | Time each order was delivered
+| `Weatherconditions` | Weather Conditions |
+| `Road_traffic_density` | Traffic Type |
+| `Vehicle_condition` | Condition of each vehicle on a scale of 0 to 3
+| `Type_of_order` | Type of each order placed |
+| `Type_of_vehicle` | Type of each vehicle
+| `multiple_deliveries` | If there was more than one order (1) or not (0) |
+| `Festival` | Whether it was a festival period (Yes) or not (No) |
+| `City` | type of each city
+| `Time_taken(min)` | Time for each order to be delivered
 
 
-# 3.0 Estratégia da Solução
+# 3.0 Solution Strategy
 
-O painel estratégico foi desenvolvido utilizando as métricas que refletem as 4 principais visões do modelo de negócio da empresa:
+The strategic dashboard was developed using metrics that reflect the 4 main visions of the company's business model:
 
-- Visão geral
-- Visão cidades
-- Visão países
-- Visão restaurantes
+- Overview
+- Vision cities
+- View countries
+- Overview restaurants
 
-Cada visão é representada pelo conjunto de métricas descrito no Problema de Negócio.
+Each view is represented by the set of metrics described in the Business Problem.
 
 # 4.0 Insights
 
 ## 4.2 Top 3 Insights
 
-### Notou-se que houve uma semana no mês de fevereiro em que não houve pedidos, o que sugere algumas hipóteses.
+### It was noted that there was a week in February when there were no orders, which suggests some hypotheses.
 ![](reports/images/bar_day.png)
 
-### A variação dos pedidos por tipo de tráfego não sofreu grandes mudanças ao longo do tempo. Nesse sentido, os tipos "Low" e "Jam" predominam as vendas.
+### The variation in requests by type of traffic has not changed significantly over time. In this sense, the types "Low" and "Jam" predominate in sales.
 ![](reports/images/pie_traffic.png)
 
-### As cidades do tipo "Urban" apresentaram o menor tempo médio de entrega
+### Cities of the "Urban" type had the lowest average delivery time
 ![](reports/images/time_per_city.png)
 
-# 5.0 O produto final do projeto
+# 5.0 The final product of the project
 
-Com o dashboard criado, o CEO pode agora consultar o painel via Cloud, pela plataforma Streamlit e, portanto, uma maneira mais ágil e fácil para a tomada de decisão.
+With the dashboard created, the CEO can now consult the dashboard via the Cloud, through the Streamlit platform and, therefore, a more agile and easier way for decision making.
 
-O painel pode ser acessado através desse link: https://luishmq-made-in-asia-mktp-home.streamlit.app/
+The panel can be accessed through this link: https://luishmq-made-in-asia-mktp-home.streamlit.app/
 
-# 6.0 Conclusões
+# 6.0 Conclusions
 
-O objetivo desse projeto é criar um conjunto de gráficos e/ou tabelas que exibam as métricas selecionadas da melhor forma possível para o CEO.
+The goal of this project is to create a set of charts and/or tables that best display the selected metrics for the CEO.
 
-Da visão da Empresa, podemos concluir que o número de pedidos cresceu entre a semana 06 e a semana 13 de 2022.
+From the Company's point of view, we can conclude that the number of orders grew between week 06 and week 13 of 2022.
 
-# 7.0 Lições Aprendidas
-- Visualização e análise de dados com bibliotecas como plotly, matplotlib e seaborn
-- Cálculo de medidas como latitude e longitude por meio da biblioteca haversine
-- Possibilidade de consulta ágil e profissional dos dados via Cloud Streamlit
+# 7.0 Lessons Learned
+- Visualization and analysis of data with libraries such as plotly, matplotlib and seaborn
+- Calculation of measurements such as latitude and longitude through theharsine library
+- Possibility of agile and professional data query via Cloud Streamlit
 
-# 8.0 Próximos Passos
-- Responder a novas hipóteses de negócios para entender melhor os dados e as relações de recursos e criar novas visões para verificar novas relações entre os dados
-- Criar novos filtros
-- Reduzir o número de métricas
-- Aplicar técnicas de programação para melhorar o desempenho da solução criada
+# 8.0 Next steps
+- Respond to new business hypotheses to better understand data and resource relationships and create new views to verify new relationships between data
+- Create new filters
+- Reduce the number of metrics
+- Apply programming techniques to improve the performance of the created solution
 
 
